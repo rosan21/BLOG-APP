@@ -1,0 +1,16 @@
+{% extends 'core/base.html'%}
+
+{% block title%} Home Page {% endblock title %}
+
+{% block content %} 
+    <h1 style="text-align:center ;">Blog App</h1>
+    <hr>
+    {% for blog in blogs%}
+        <h2>{{blog.title}}</h2>
+        <p>{{blog.content}}</p>
+        <small>{{blog.date_posted}}</small>
+        <hr>
+    {%endfor%}
+    
+
+{% endblock content %}
