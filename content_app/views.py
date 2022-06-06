@@ -1,8 +1,11 @@
 from django.shortcuts import redirect, render
 from content_app.models import Blog
 from content_app.forms import BlogForm
+from Blog import settings
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def home(request):
     blogs = Blog.objects.all()
     return render(request, 'home.html', {'blogs':blogs})
@@ -17,7 +20,7 @@ def add_blog(request):
             title = form.cleaned_data['title']
             content = form.cleaned_data['content']
 
-            Blog.objects.create(title = title, content = content, user_id= 1)
+            Blog.objects.create(title = title, content = content, user_id= request.user.id)
             
             return redirect('home')
         else:
