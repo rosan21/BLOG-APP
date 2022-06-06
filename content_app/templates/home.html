@@ -8,9 +8,15 @@
     {% for blog in blogs%}
         <h2>{{blog.title}}</h2>
         <p>{{blog.content}}</p>
-        <small>{{blog.date_posted}}</small>
+        <small>{{blog.date_posted}} - {{blog.user.username}}</small>
+        <a href="{% url 'edit-blog' id=blog.id %}">Edit</a>
+        <a href="{% url 'delete-blog' id=blog.id %}">Delete</a>
         <hr>
     {%endfor%}
+    <div style = "text-align:center ;">
+        <a href="{% url 'add-blog' %}" class="btn btn-primary">Add</a>
+    </div>
+    
     
 
 {% endblock content %}
