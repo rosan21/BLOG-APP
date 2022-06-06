@@ -4,9 +4,9 @@
 
 {% block content%} 
     {% load crispy_forms_tags %}
-    <form method="POST">
-        {% csrf_token %}
-        {{form|crispy}}
-        <input type="submit" >
-    </form>
+        <form method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" >
+        </form>
 {% endblock content %}
