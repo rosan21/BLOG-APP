@@ -38,7 +38,13 @@ def signin(request):
         user = authenticate(username = username, password = password)
         if user is not None:
             login(request,user)
-            return redirect('home')
+            next_url = request.GET.get('next')
+            if next_url is None:
+                return redirect('home')
+            else:
+                return redirect(next_url)
+
+            
         else:
             return render(request, 'login.html',{'form':form})
 

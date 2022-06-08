@@ -10,6 +10,7 @@ def home(request):
     blogs = Blog.objects.all()
     return render(request, 'home.html', {'blogs':blogs})
 
+@login_required
 def add_blog(request):
     if request.method == 'GET':
         form = BlogForm()
@@ -26,13 +27,18 @@ def add_blog(request):
         else:
             return render(request,'add.html', {'form': form})
 
+@login_required
 def delete_blog(request, id):
     blog = Blog.objects.get(id=id)
     blog.delete()
     return redirect('home')
 
+@login_required
 def edit_blog(request, id):
-    blog = Blog.objects.get(id=id)
+    try:
+         blog = Blog.objects.get(id=id)
+    except Blog.DoesNotExist:
+        return redirect('404notfound')
     if request.method == 'GET':
         form = BlogForm(instance=blog)
         return render(request, 'edit.html', {'form':form})
@@ -46,3 +52,5 @@ def edit_blog(request, id):
         else:
             return render(request, 'edit.html', {'form':form})
 
+def not_found(request):
+    return render(request, '404.html')
